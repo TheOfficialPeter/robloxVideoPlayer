@@ -1,0 +1,1 @@
+{"version":3,"file":"point.class.d.ts","sourceRoot":"","sources":["../../lib/point.class.ts"],"names":[],"mappings":"AAAA,qBAAa,KAAK;IACG,CAAC,EAAE,MAAM;IAAS,CAAC,EAAE,MAAM;gBAA3B,CAAC,EAAE,MAAM,EAAS,CAAC,EAAE,MAAM;IAEvC,QAAQ;CAGhB;AAKD,wBAAgB,OAAO,CAAC,aAAa,EAAE,GAAG,GAAG,aAAa,IAAI,KAAK,CAelE"}

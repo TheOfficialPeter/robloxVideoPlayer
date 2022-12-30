@@ -1,0 +1,1 @@
+{"version":3,"file":"window-api.interface.d.ts","sourceRoot":"","sources":["../../lib/window-api.interface.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,OAAO,EAAE,MAAM,EAAE,MAAM,gBAAgB,CAAC;AAExC,MAAM,WAAW,SAAS;IACxB,UAAU,IAAI,OAAO,CAAC,MAAM,EAAE,CAAC,CAAC;IAChC,eAAe,IAAI,OAAO,CAAC,MAAM,CAAC,CAAC;CACpC"}

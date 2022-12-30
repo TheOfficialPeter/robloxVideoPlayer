@@ -1,0 +1,1 @@
+{"version":3,"file":"match-result.class.d.ts","sourceRoot":"","sources":["../../lib/match-result.class.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,gBAAgB,CAAC;AAExC,qBAAa,WAAW;aAEJ,UAAU,EAAE,MAAM;aAClB,QAAQ,EAAE,MAAM;aAChB,KAAK,CAAC;gBAFN,UAAU,EAAE,MAAM,EAClB,QAAQ,EAAE,MAAM,EAChB,KAAK,CAAC,mBAAO;CAEhC"}

@@ -1,7 +1,7 @@
 local lightingModule = require(robloxCinemaLighting)
 
-local screen = workspace["MainScreen"]
-
+local screenPart = workspace["MainScreen"]
+local http = game:GetService("HttpService")
 local screenWidth = 1000
 local screenHeight = 1000
 
@@ -14,9 +14,26 @@ local quadrant2 = {0,0,0}
 local quadrant3 = {0,0,0}
 local quadrant4 = {0,0,0}
 
+function checkForPixelMap()
+    local response = nil
+    local s,err = pcall(function()
+        response = http:GetAsync()
+    end)
+
+    if not s then
+        warn("Cinema Framework - Could not connect to server. Error: "..err)
+        return false
+    else
+        if response ~= nil then
+            return http:JSONDecode(response)
+        end
+    end
+end
+
 function updatePixels(pixelMap, screenWidth, screenHeight)
     -- update pixels with the pixelMap
     -- screen updates vertically from left to right. It updates in columns
+    -- also updates lighting effect (the if statements)
     for i,pixel in pairs(pixels) do
         if pixel.Position.X < screenWidth/2 and pixel.Position.Y < screenHeight/2 then
             -- quadrant 1
@@ -41,6 +58,7 @@ function updatePixels(pixelMap, screenWidth, screenHeight)
         end
 
         -- Change the pixel's color
+        pixel.Color = Color3.fromRGB(pixelMap[i])
     end
 end
 
@@ -55,12 +73,26 @@ end
 lightingModule.loadCinemaLighting()
 lightingModule.updateLighting(getAverageColors())
 
-for i = 1,screenWidth,1 do
-    for i2 = 1,screenHeight,1 do
-        local pixel = Instance.new("Frame", screen)
-        pixel.Name = i.."-"..i2
-        pixel.Size = UDim2.new(0,1,0,1)
-        pixel.Position = UDim2.fromOffset(i,i2)
-        table.insert(pixels, #pixels+1, pixel)
+function startLoop()
+    game:GetService("RunService").RenderStepped:Connect(function(deltaTime)
+        local pixelMap = checkForPixelMap()
+
+        if pixelMap then
+            updatePixels(pixelMap, 1000, 1000)
+        end
+    end)
+end
+
+function createScreen(screenPart)
+    for i = 1,screenWidth,1 do
+        for i2 = 1,screenHeight,1 do
+            local pixel = Instance.new("Frame", screenPart)
+            pixel.Name = i.."-"..i2
+            pixel.Size = UDim2.new(0,1,0,1)
+            pixel.Position = UDim2.fromOffset(i,i2)
+            table.insert(pixels, #pixels+1, pixel)
+        end
     end
 end
+
+createScreen(screenPart)

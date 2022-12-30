@@ -1,0 +1,1 @@
+{"version":3,"file":"data-source.interface.d.ts","sourceRoot":"","sources":["../../../lib/provider/data-source.interface.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,WAAW,mBAAmB,CAAC,cAAc,EAAE,WAAW;IAC9D;;;OAGG;IACH,IAAI,CAAC,UAAU,EAAE,cAAc,GAAG,OAAO,CAAC,WAAW,CAAC,CAAC;CACxD"}
