@@ -28,6 +28,8 @@ function module.loadCinemaLighting(mainScreenPart, screenWidth, screenHeight, av
         elseif i == 4 then
             newLight.CFrame = lightingPosition.CFrame + Vector3.new(screenWidth/2, screenHeight/2, 0)
         end
+
+        table.insert(module.lights, #module.lights+1, newLight)
     end
 end
 

@@ -44,6 +44,17 @@ function updatePixels(pixelMap, screenWidth, screenHeight)
     end
 end
 
+function getAverageColors()
+    local q1 = {quadrant1[1]/((screenWidth*screenHeight)/4), quadrant1[2]/((screenWidth*screenHeight)/4), quadrant1[3]/((screenWidth*screenHeight)/4)}
+    local q2 = {quadrant2[1]/((screenWidth*screenHeight)/4), quadrant2[2]/((screenWidth*screenHeight)/4), quadrant2[3]/((screenWidth*screenHeight)/4)}
+    local q3 = {quadrant3[1]/((screenWidth*screenHeight)/4), quadrant3[2]/((screenWidth*screenHeight)/4), quadrant3[3]/((screenWidth*screenHeight)/4)}
+    local q4 = {quadrant4[1]/((screenWidth*screenHeight)/4), quadrant4[2]/((screenWidth*screenHeight)/4), quadrant4[3]/((screenWidth*screenHeight)/4)}
+    return {{q1}, {q2}, {q3}, {q4}}
+end
+
+lightingModule.loadCinemaLighting()
+lightingModule.updateLighting(getAverageColors())
+
 for i = 1,screenWidth,1 do
     for i2 = 1,screenHeight,1 do
         local pixel = Instance.new("Frame", screen)
