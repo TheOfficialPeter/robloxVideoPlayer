@@ -1,19 +1,29 @@
 const express = require('express')
+const { screen } = require('@nut-tree/nut-js');
 const app = express()
 const port = 3000
 
-app.get('/check', (req, res) => {
-	res.statusCode(404);
+var img = ""
+
+app.get('/checkPixelMap', (req, res) => {
+	if (img != "") {
+		res.sendStatus(200)
+	}
+	else 
+	{
+		res.sendStatus(404);
+	}
 })
 
-app.get('/get', (req, res) => {
+app.get('/recievePixelMap', (req, res) => {
 	res.send();
 })
 
-app.post('/post', (req, res) => {
+app.post('/submitPixelMap', (req, res) => {
 	res.send("Success!");
 })
 
 app.listen(port, () => {
 	console.log(`Roblox Cinema framework is listening on port ${port}`)
+	//img = screen.grabRegion(0,0,100,100)
 })
