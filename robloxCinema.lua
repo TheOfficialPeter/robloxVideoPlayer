@@ -81,8 +81,8 @@ function createScreen(screenPart)
             local pixel = Instance.new("Frame", screenPart)
             pixel.Name = i.."-"..i2
             pixel.Size = UDim2.new(0,1,0,1)
-            pixel.Position = UDim2.fromOffset(i,i2)
-            table.insert(pixels, #pixels+1, pixel)
+            pixel.Position = UDim2.fromOffset(i*10,i2*10)
+            --table.insert(pixels, #pixels+1, pixel)
         end
     end
 end
