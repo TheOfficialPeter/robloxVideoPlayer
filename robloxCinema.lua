@@ -75,16 +75,16 @@ function startLoop()
     end)
 end
 
-function createScreen(screenPart)
+function createScreen(screenPart, pixelSize)
     for i = 1,screenWidth,1 do
         for i2 = 1,screenHeight,1 do
             local pixel = Instance.new("Frame", screenPart)
             pixel.Name = i.."-"..i2
-            pixel.Size = UDim2.new(0,1,0,1)
-            pixel.Position = UDim2.fromOffset(i*10,i2*10)
+            pixel.Size = UDim2.new(0,pixelSize,0,pixelSize)
+            pixel.Position = UDim2.fromOffset(i*pixelSize,i2*pixelSize)
             --table.insert(pixels, #pixels+1, pixel)
         end
     end
 end
 
-createScreen(screenPart)
+createScreen(screenPart, 10)
