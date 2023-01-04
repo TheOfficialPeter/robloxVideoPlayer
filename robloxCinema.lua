@@ -75,16 +75,25 @@ function startLoop()
     end)
 end
 
-function createScreen(screenPart, pixelSize)
-    for i = 1,screenWidth,1 do
-        for i2 = 1,screenHeight,1 do
-            local pixel = Instance.new("Frame", screenPart)
-            pixel.Name = i.."-"..i2
-            pixel.Size = UDim2.new(0,pixelSize,0,pixelSize)
-            pixel.Position = UDim2.fromOffset(i*pixelSize,i2*pixelSize)
-            --table.insert(pixels, #pixels+1, pixel)
-        end
-    end
+local pixelMap = script.Parent.pixelMap.Value
+--print(pixelMap)
+local realMap = string.gsub(pixelMap, "%[", "")
+realMap = string.gsub(realMap, "%]", "")
+axismaps = string.split(realMap, ".")
+
+function createScreen(screenPart)
+	local pixelSize = 10
+	for i,v in pairs(axismaps) do
+		local axismaps2 = string.split(v, ";")
+		for i2,v2 in pairs(axismaps2) do
+			local pixel = Instance.new("Frame", screenPart)
+			pixel.Name = i.."-"..i2
+			pixel.BorderSizePixel = 0
+			pixel.Size = UDim2.new(0,pixelSize,0,pixelSize)
+			pixel.Position = UDim2.fromOffset(i2*pixelSize,i*pixelSize)
+			pixel.BackgroundColor3 = Color3.fromRGB(tonumber(v2:split(",")[1]), tonumber(v2:split(",")[2]), tonumber(v2:split(",")[3]))
+		end
+	end
 end
 
-createScreen(screenPart, 10)
+createScreen(script.Parent.SurfaceGui)
