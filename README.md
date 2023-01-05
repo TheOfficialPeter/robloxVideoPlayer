@@ -1,4 +1,4 @@
-# Cinema framework
+# Video Player Framework
 
 The framework aims to povide your roblox game with a utility to watch any video on the internet inside of your roblox game.
 
