@@ -1,6 +1,6 @@
 # Video Player Framework
 
-THIS IS EXTREMELY NEW. DON'T EXPECT ANYTHING GREAT YET
+THIS IS EXTREMELY NEW. DON'T EXPECT ANYTHING GREAT YET (I will organize the files later)
 
 The framework aims to povide your roblox game with a utility to watch any video on the internet inside of your roblox game.
 
