@@ -16,7 +16,7 @@ end
 
 function addLighting(screenPart)
     local light = Instance.new("SurfaceLight", screenPart)
-    light.Name = "CinemaLight"
+    light.Name = "VideoLight"
     light.Range = 60
     light.Brightness = 1
 
@@ -30,7 +30,7 @@ function checkForPixelMap()
     end)
 
     if not s then
-        warn("Cinema Framework - Could not connect to server. Error: "..err)
+        warn("Video Player Framework - Could not connect to server. Error: "..err)
         return false
     else
         if response ~= nil then
