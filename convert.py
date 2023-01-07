@@ -1,18 +1,21 @@
 import numpy as np
 from PIL import Image
+import pyautogui
+import cv2
 
-img = Image.open('yes.png')
-print(img)
+img = pyautogui.screenshot(region=(0,0,1980,1080))
 
 file = open("imgarr.txt","w")
 nparr = np.array(img)
 
+nparr = cv2.resize(nparr, dsize=(300,100))
+
 count = 0
 
-for i in range(0,49):
+for i in range(0,99):
     count += 1
     print(count)
-    for i2 in range(0,99):
+    for i2 in range(0,299):
         file.write("[" + str(nparr[i][i2][0]).replace(" ","") + "," + str(nparr[i][i2][1]).replace(" ","") + "," + str(nparr[i][i2][2]).replace(" ","") + "]" + ";")
     file.write(".")
 
