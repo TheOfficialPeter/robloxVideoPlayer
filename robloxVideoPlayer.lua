@@ -10,19 +10,6 @@ local pixels = {}
 
 local totalColor = {0,0,0}
 
-function updateLighting(light, colorArray)
-    light.Color = Color3.fromRGB(colorArray)
-end
-
-function addLighting(screenPart)
-    local light = Instance.new("SurfaceLight", screenPart)
-    light.Name = "VideoLight"
-    light.Range = 60
-    light.Brightness = 1
-
-    return light
-end
-
 function checkForPixelMap()
     local response = nil
     local s,err = pcall(function()
@@ -45,21 +32,28 @@ function getAverageColors()
 end
 
 function updatePixels(pixelMap, screenWidth, screenHeight)
-    -- update pixels with the pixelMap
-    -- screen updates vertically from left to right. It updates in columns
-    -- also updates lighting effect (the if statements)
-    for i,pixel in pairs(pixels) do
-        totalColor[1] = totalColor[1] + pixel.Color.R
-        totalColor[2] = totalColor[2] + pixel.Color.G
-        totalColor[3] = totalColor[3] + pixel.Color.B
+    --print(pixelmap)
+    local realmap = string.gsub(pixelMap, "%[", "")
+    realmap = string.gsub(realmap, "%]", "")
+    local axismaps = string.split(realmap, ".")
+    screenHeight = #axismaps
+    local counter = 0
 
-        pixel.Color = Color3.fromRGB(pixelMap[i])
+    for i,v in pairs(axismaps) do
+		local axismaps2 = string.split(v, ";")
+        screenWidth = #axismaps2
+        for i2,v2 in pairs(axismaps2) do
+            counter = counter + 1
+			pixels[counter].BackgroundColor3 = Color3.fromRGB(tonumber(v2:split(",")[1]), tonumber(v2:split(",")[2]), tonumber(v2:split(",")[3]))
+
+            totalColor[1] = totalColor[1] + v2.BackgroundColor3.R
+            totalColor[2] = totalColor[2] + v2.BackgroundColor3.G
+            totalColor[3] = totalColor[3] + v2.BackgroundColor3.B
+        end
     end
 
-    -- Add the realistic cinema lighting
     local colorArray = getAverageColors()
-    local light = addLighting()
-    updateLighting(light, colorArray)
+    workspace.screenPart.SurfaceLight.Color = Color3.fromRGB(colorArray)
 end
 
 lightingModule.loadCinemaLighting()
@@ -75,11 +69,11 @@ function startLoop()
     end)
 end
 
-local pixelMap = script.Parent.pixelMap.Value
---print(pixelMap)
-local realMap = string.gsub(pixelMap, "%[", "")
-realMap = string.gsub(realMap, "%]", "")
-axismaps = string.split(realMap, ".")
+local pixelmap = script.parent.pixelmap.value
+--print(pixelmap)
+local realmap = string.gsub(pixelmap, "%[", "")
+realmap = string.gsub(realmap, "%]", "")
+local axismaps = string.split(realmap, ".")
 
 function createScreen(screenPart)
 	local pixelSize = 10
@@ -92,6 +86,8 @@ function createScreen(screenPart)
 			pixel.Size = UDim2.new(0,pixelSize,0,pixelSize)
 			pixel.Position = UDim2.fromOffset(i2*pixelSize,i*pixelSize)
 			pixel.BackgroundColor3 = Color3.fromRGB(tonumber(v2:split(",")[1]), tonumber(v2:split(",")[2]), tonumber(v2:split(",")[3]))
+            
+            table.insert(pixels, pixel)
 		end
 	end
 end
