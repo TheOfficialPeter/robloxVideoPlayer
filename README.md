@@ -1,6 +1,6 @@
 # Video Player Framework
 
-THIS IS EXTREMELY NEW. DON'T EXPECT ANYTHING GREAT YET (I will organize the files later)
+Almost done with the main concept thereafter I will make the framework more user-friendly and optimize the code.
 
 The framework aims to povide your roblox game with a utility to watch any video on the internet inside of your roblox game using external screen capture and a webserver.
 
