@@ -6,6 +6,10 @@ The framework aims to povide your roblox game with a utility to watch any video 
 
 I do realise that the TOS won't allow such frameworks, but that is why I am letting you know that I am sharing this for educational purposes only, which does not include any malicious intent. Enjoy.
 
+I am going to add the roblox game files here as well just for a guideline on how to replicate it to your game. That will happen once I am satisfied with the framework.
+
 ## Known issues
 
 - Delay/Lag. It takes a while for the frames to change ( currently on 1 FPS ), but I am thinking it is the webserver I am using, becuase it takes ~ 3 seconds for roblox to retrieve the pixel color information. I am going to test on a different server and if that doesn't work I will start using compression methods to decrease the size of the data packets.
+
+- Display size. At this stage the software reads from your screen and resize the capture to make it bigger in the game, but it doesn't fit to the whole in-game screen. I will be fixing that soon.
