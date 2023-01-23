@@ -4,6 +4,7 @@ local remote = game.ReplicatedStorage.pixelmap
 local totalColor = {0,0,0}
 local pixels = {}
 
+-- Updates the screen with the latest pixel map. Updates = changes pixel colors
 function updateScreen(pixelMap)
 	totalColor = {0,0,0}
 	local counter = 0
@@ -21,6 +22,7 @@ function updateScreen(pixelMap)
 		end
 	end
 
+	-- OLD method. It worked with the OLD array. I removed both for better performance.
 	--[[
 	totalColor = {0,0,0}
 	--print(pixelmap)
@@ -44,10 +46,11 @@ function updateScreen(pixelMap)
 	end
 	]]--
 
-	local average = 300
+	local average = 300 -- This should be change to the total amount of pixels. 300 is default.
 	workspace.screenPart.SurfaceLight.Color = Color3.fromRGB(totalColor[1]/average, totalColor[2]/average, totalColor[3]/average)
 end
 
+-- Creates all the pixels and places them into the screenGUI's frame
 function createScreen(screenPart, pixelMap)
 	local pixelSize = 20
 	for i,v in pairs(pixelMap) do
@@ -61,7 +64,7 @@ function createScreen(screenPart, pixelMap)
 
 			totalColor[1] = totalColor[1] + pixel.BackgroundColor3.R
 			totalColor[2] = totalColor[2] + pixel.BackgroundColor3.G
-			totalColor[3] = totalColor[3] + pixel.BackgroundColor3.B	
+			totalColor[3] = totalColor[3] + pixel.BackgroundColor3.B
 
 			table.insert(pixels, pixel)
 		end
@@ -94,17 +97,20 @@ function createScreen(screenPart, pixelMap)
 	end
 	]]--
 
-	--print(totalColor)
-	local average = 300
+	local average = 300 -- This should be change to the total amount of pixels. 300 is default.
 	workspace.screenPart.SurfaceLight.Color = Color3.fromRGB(totalColor[1]/average, totalColor[2]/average, totalColor[3]/average)
 end
 
 
-local x = 0
+-- Client-Server connection.
+-- We wait for the server to send the client the latest information about the pixel color arrays.
+-- At the first iteration we will be creating the pixels and thereafter we just update their colors
+
+local i = 0
 
 remote.OnClientEvent:Connect(function(pixelMap)
-	x += 1
-	if x == 1 then
+	i += 1
+	if i == 1 then
 		createScreen(workspace.screenPart.SurfaceGui, pixelMap)
 	end
 

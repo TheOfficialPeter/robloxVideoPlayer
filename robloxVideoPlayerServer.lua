@@ -1,15 +1,13 @@
--- MAKING A GET REQUEST TO SERVER SHOULD RETURN A NUMPY ARRAY OF PIXEL VALUES
-
 local http = game:GetService("HttpService")
 
 function checkForPixelMap()
 	local response = nil
 	local s,err = pcall(function()
-		response = http:GetAsync("SERVER_URL_HERE")
+		response = http:GetAsync("SERVER_URL_HERE") -- Remember to place your server url here.
 	end)
 
 	if not s then
-		warn("Video Player Framework - Could not connect to server. Error: "..err)
+		warn("Roblox video framework - Could not connect to server. Error: "..err)
 		return false
 	else
 		if response ~= "" and response ~= nil then
@@ -19,6 +17,7 @@ function checkForPixelMap()
 	end
 end
 
+-- Keeps on checking for the latest pixel array from the web server
 function recursiveCheck()
 	local response = checkForPixelMap()
 
