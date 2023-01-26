@@ -10,8 +10,11 @@ import time
 
 app = Flask(__name__)
 
-imgarr = ""
 server_running = True
+looping = False
+global response
+response = ""
+nparr = ""
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
@@ -21,35 +24,36 @@ class NumpyArrayEncoder(JSONEncoder):
 
 @app.route("/")
 def start():
-    global imgarr
+    global looping
+    global response
 
     print("Roblox video framework - Capturing and displaying screen. Have a look on Roblox.")
 
     # Refresh the image array on the web server
-    while server_running:
-        imgarr = ""
+    if looping == False:
+        looping = True
+        while server_running:
+            imgarr = ""
 
-        # defien region of screen to grab (todo: make user select which part)
-        img = pyautogui.screenshot(region=(0,0,300,300))
+            # define region of screen to grab (todo: make user select which part)
+            img = pyautogui.screenshot(region=(0,0,300,300))
 
-        # convert and resisize image
-        nparr = np.array(img)
-        nparr = cv2.resize(nparr, dsize=(200,200))
+            # convert and resisize image
+            nparr = np.array(img)
+            nparr = cv2.resize(nparr, dsize=(100,100))
 
-        # image array is loaded onto the flask server. Make a GET request to get image array
-        response = app.response_class(
-            response=json.dumps(nparr, cls=NumpyArrayEncoder),
-            status=200,
-            mimetype='application/json'
-        )
+            response = app.response_class(
+                response=json.dumps(nparr, cls=NumpyArrayEncoder),
+                status=200,
+                mimetype='application/json'
+            )
 
-        return response
-    
-        # OLD method of writing my own custom array. I decided to use the default numpy output array. Huge performance boost.
-        #for i in range(0,99):
-            #for i2 in range(0,99):
-                #imgarr += "[" + str(nparr[i][i2][0]).replace(" ","") + "," + str(nparr[i][i2][1]).replace(" ","") + "," + str(nparr[i][i2][2]).replace(" ","") + "]" + ";"
-            #imgarr += "."
+    return "Running"
+
+@app.route("/get")
+def get():
+    global response
+    return response
 
 # Make a GET request to the /stop directory to stop the app from reading the screen
 @app.route("/stop")
