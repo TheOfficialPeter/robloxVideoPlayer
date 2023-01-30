@@ -18,7 +18,7 @@ app.post('/post', (req, res) => {
     if (req.query.code && req.query.code == "theofficialpeterisreallyreallcool1100"){
         // save the latest pixelmap
         console.log(req.body);
-        pixelMap = JSON.parse(req.body);
+        pixelMap = req.body;
     }
 })
 
