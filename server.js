@@ -6,6 +6,10 @@ const app = express()
 const port = 8080
 var pixelMap = "";
 
+app.get('/', (req, res) => {
+    res.send("You found the video player's server. WOAH")
+})
+
 app.get('/get', (req, res) => {
     res.send(pixelMap);
 })
