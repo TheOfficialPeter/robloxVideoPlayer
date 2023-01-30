@@ -14,7 +14,7 @@ app.get('/get', (req, res) => {
     res.send(pixelMap);
 })
 
-app.post('/post', (req, res) => {
+app.get('/post', (req, res) => {
     if (req.query.code && req.query.code == "theofficialpeterisreallyreallcool1100"){
         // save the latest pixelmap
         console.log(req.body);
