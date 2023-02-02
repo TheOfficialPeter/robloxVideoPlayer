@@ -1,30 +1,29 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const multer = require('multer')
-const upload = multer()
-
-const app = express()
-const port = 8080
-app.use(bodyParser.json({limit: '1mb'}));
-app.use(bodyParser.urlencoded({limit: "1mb", extended: true}))
+const http = require('node:http')
+const ujson = require('ujson')
+const url = require("url")
 
 var pixelMap = "";
 
-app.get('/', (req, res) => {
-    res.send("You found the video player's server. WOAH")
+try {
+const server = http.createServer((req, res) => {
+    var body = "";
+
+    req.on('data', function(chunk){
+        body += chunk;
+    })
+
+    req.on('end', function(){
+        const reqUrl = url.parse(req.url).pathname
+        if (req.method == "GET" && reqUrl == "/"){
+            res.end(pixelMap)
+        }
+        else if (req.method == "POST" && reqUrl == "/post"){
+            pixelMap = body;
+        }
+        res.end("200")
+    })
 })
 
-app.get('/get', (req, res) => {
-    res.send(pixelMap);
-})
-
-app.post('/post', upload.array(), (req, res, next) => {
-    if (req.query.code){
-        console.log(req.body);
-        pixelMap = req.body;
-    }
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+server.listen(8080)
+}
+catch {}
