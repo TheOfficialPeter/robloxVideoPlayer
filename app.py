@@ -1,18 +1,13 @@
 import numpy as np
+import requests
 from PIL import Image
-from flask import Flask
-from flask import jsonify
 import pyautogui
 import json
 from json import JSONEncoder
 import cv2
 import time
 
-app = Flask(__name__)
-
-server_running = True
-looping = False
-global response
+looping = True
 response = ""
 nparr = ""
 
@@ -22,43 +17,18 @@ class NumpyArrayEncoder(JSONEncoder):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
-@app.route("/")
-def start():
-    global looping
-    global response
+print("Roblox video framework - Capturing and displaying screen. Have a look on Roblox.")
 
-    print("Roblox video framework - Capturing and displaying screen. Have a look on Roblox.")
+while looping:
+    imgarr = ""
 
-    # Refresh the image array on the web server
-    if looping == False:
-        looping = True
-        while server_running:
-            imgarr = ""
+    # define region of screen to grab (todo: make user select which part)
+    img = pyautogui.screenshot(region=(0,0,300,300))
 
-            # define region of screen to grab (todo: make user select which part)
-            img = pyautogui.screenshot(region=(0,0,300,300))
+    # convert and resisize image
+    nparr = np.array(img)
+    nparr = cv2.resize(nparr, dsize=(100,100))
+    nparr = json.dumps(nparr, cls=NumpyArrayEncoder)
 
-            # convert and resisize image
-            nparr = np.array(img)
-            nparr = cv2.resize(nparr, dsize=(100,100))
-
-            response = app.response_class(
-                response=json.dumps(nparr, cls=NumpyArrayEncoder),
-                status=200,
-                mimetype='application/json'
-            )
-
-    return "Running"
-
-@app.route("/get")
-def get():
-    global response
-    return response
-
-# Make a GET request to the /stop directory to stop the app from reading the screen
-@app.route("/stop")
-def stop():
-    print("Roblox video framework - Stopped screen capturing. Restart by visiting '/'")
-    global server_running
-    server_running = False
-    return "Roblox video framework - Stopped screen capturing. Restart by visiting '/'"
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    requests.post('http://localhost:8080/post?code=theofficialpeterisreallyreallcool1100', headers=headers, json={'pixelmap': nparr})
