@@ -6,6 +6,8 @@ The framework aims to povide your roblox game with a utility to watch any video 
 
 I do realise that the TOS won't allow such frameworks, but that is why I am letting you know that I am sharing this for educational purposes only, which does not include any malicious intent. Enjoy.
 
+Let me know if I need to add my roblox game files here too so that it can be used as installation reference.
+
 ## Known issues
 
 ~~- Delay/Lag. It takes a while for the frames to change ( currently on 1 FPS ). I realized it is the reverse proxy I was using. I test running everything locally and the frames refreshed instantly. I am looking for a way around this.~~ The problem was the server I was using. Using lower resolution means faster fps
