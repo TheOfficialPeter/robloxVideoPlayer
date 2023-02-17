@@ -18,10 +18,9 @@ const server = http.createServer((req, res) => {
             res.end(pixelMap)
         }
         else if (req.method == "POST" && reqUrl == "/post"){
-            console.log(ujson.parse(body)["0"])
             pixelMap = ujson.parse(body)["0"]
+            res.end("200")
         }
-        res.end("200")
     })
 })
 
